@@ -1,7 +1,7 @@
 local run = function(func)
     local ok, err = pcall(func)
     if not ok then
-        warn('[AEROV4] module failed to load: ' .. tostring(err))
+        warn('[KingifyV2] module failed to load: ' .. tostring(err))
     end
 end
 local vapeEvents = setmetatable({}, {
@@ -2232,7 +2232,7 @@ run(function()
 	local hasReacted = false
 	local currentTarget = nil
 	
-	local aerov4bad = {
+	local Kingifyv2bad = {
 		predictStrafingMovement = function(targetPlayer, targetPart, projSpeed, gravity, origin)
 			if not targetPlayer or not targetPlayer.Character or not targetPart then 
 				return targetPart and targetPart.Position or Vector3.zero
@@ -2362,7 +2362,7 @@ run(function()
 		local targetBodyPart = getTargetPart(ent)
 		if not targetBodyPart then return nil end
 		
-		if PAMode.Value == 'Aero' then
+		if PAMode.Value == 'Kingify' then
 			local projSpeed = 100
 			local gravity = 196.2
 			
@@ -2390,7 +2390,7 @@ run(function()
 				end
 			end
 			
-			local predictedPos = aerov4bad.predictStrafingMovement(
+			local predictedPos = Kingifyv4bad.predictStrafingMovement(
 				ent.Player,
 				targetBodyPart,
 				projSpeed,
@@ -2639,9 +2639,9 @@ run(function()
 	
 	PAMode = ProjectileAimAssist:CreateDropdown({
 		Name = 'Prediction Mode',
-		List = {'Vape', 'Aero'},
-		Default = 'Aero',
-		Tooltip = 'Vape = Built-in | Aero = Custom'
+		List = {'Vape', 'Kingify'},
+		Default = 'Kingify',
+		Tooltip = 'Vape = Built-in | Kingify = Custom'
 	})
 	
 	AimSpeed = ProjectileAimAssist:CreateSlider({
@@ -2922,7 +2922,7 @@ run(function()
             return nil
         end
 
-        local function AutoClickAero()
+        local function AutoClickKingify()
             if Thread then task.cancel(Thread) end
             Thread = task_spawn(function()
                 repeat
@@ -2968,7 +2968,7 @@ run(function()
                             ActivationScheduled = task.delay(MIN_HOLD_TIME, function()
                                 ActivationScheduled = nil
                                 if inputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
-                                    AutoClickAero()
+                                    AutoClickKingify()
                                 end
                             end)
                         end
@@ -3168,7 +3168,7 @@ run(function()
 
     local function createkitrender(plr)
         local icon = Instance.new("ImageLabel")
-        icon.Name = "AeroV4KitRender" 
+        icon.Name = "KingifyV4KitRender" 
         icon.AnchorPoint = Vector2.new(1, 0.5)
         icon.BackgroundTransparency = 1
         icon.Position = UDim2.new(1.05, 0, 0.5, 0)
@@ -3197,7 +3197,7 @@ run(function()
         end
         
         for _, v in ipairs(PlayerGui:GetDescendants()) do
-            if v:IsA("ImageLabel") and v.Name == "AeroV4KitRender" then  
+            if v:IsA("ImageLabel") and v.Name == "KingifyV4KitRender" then  
                 v:Destroy()
             end
         end
@@ -3251,7 +3251,7 @@ run(function()
             local card = container:FindFirstChild("1") and container["1"]:FindFirstChild("MatchDraftPlayerCard")
             if not card then return end
             
-            local icon = card:FindFirstChild("AeroV4KitRender")  
+            local icon = card:FindFirstChild("KingifyV4KitRender")  
             if not icon then
                 icon = createkitrender(playerFound)
                 icon.Parent = card
@@ -3353,7 +3353,7 @@ run(function()
                     end
                     
                     local kitLabel = Instance.new("ImageLabel")
-                    kitLabel.Name = "AeroV4KitIcon"
+                    kitLabel.Name = "KingifyV4KitIcon"
                     kitLabel.Size = UDim2.new(1, 0, 1, 0)
                     kitLabel.Position = UDim2.new(1.1, 0, 0, 0)
                     kitLabel.BackgroundTransparency = 1
@@ -5171,7 +5171,7 @@ run(function()
 	})
 end)
 
--- aero killaura 
+-- Kingify killaura 
 local Attacking
 run(function()
     local Killaura
@@ -5610,7 +5610,7 @@ run(function()
         return finalPosition
     end
 
-    local aerov4bad = {
+    local Kingifyv4bad = {
         SolveTrajectory = function(origin, projectileSpeed, gravity, targetPos, targetVelocity, playerGravity, playerHeight, playerJump, params, target, TargetPart)
             if origin and target and TargetPart then
                 local straft = predictStrafingMovement(target, TargetPart, projectileSpeed, gravity, origin)
@@ -5742,7 +5742,7 @@ run(function()
         if ProjectileTypeFastHits.Value == 'Vape' then
             calc = prediction.SolveTrajectory(pos, projSpeed, gravity, ent.RootPart.Position, ent.RootPart.Velocity, workspace.Gravity, ent.HipHeight, ent.Jumping and 42.6 or nil, rayCheckFastHits)
         else
-            calc = aerov4bad.SolveTrajectory(pos, projSpeed, gravity, ent.RootPart.Position, ent.RootPart.Velocity, workspace.Gravity, ent.HipHeight, ent.Jumping and 42.6 or nil, rayCheckFastHits, ent.Player, ent.RootPart)
+            calc = Kingifyv4bad.SolveTrajectory(pos, projSpeed, gravity, ent.RootPart.Position, ent.RootPart.Velocity, workspace.Gravity, ent.HipHeight, ent.Jumping and 42.6 or nil, rayCheckFastHits, ent.Player, ent.RootPart)
         end
 
         if calc then
@@ -5826,7 +5826,7 @@ run(function()
                             if ProjectileTypeFastHits.Value == 'Vape' then
                                 calc = prediction.SolveTrajectory(pos, projSpeed, gravity, ent.RootPart.Position, ent.RootPart.Velocity, workspace.Gravity, ent.HipHeight, ent.Jumping and 42.6 or nil, RaycastParams.new())
                             else
-                                calc = aerov4bad.SolveTrajectory(pos, projSpeed, gravity, ent.RootPart.Position, ent.RootPart.Velocity, workspace.Gravity, ent.HipHeight, ent.Jumping and 42.6 or nil, RaycastParams.new(), ent.Player, ent.RootPart)
+                                calc = Kingifyv4bad.SolveTrajectory(pos, projSpeed, gravity, ent.RootPart.Position, ent.RootPart.Velocity, workspace.Gravity, ent.HipHeight, ent.Jumping and 42.6 or nil, RaycastParams.new(), ent.Player, ent.RootPart)
                             end
 
                             if calc then
@@ -6450,9 +6450,9 @@ run(function()
 
     ProjectileTypeFastHits = Killaura:CreateDropdown({
         Name = "Projectile Type",
-        List = {'Vape','Aero'},
-        Default = 'Aero',
-        Tooltip = 'Vape = Built in predictions\nAero = Custom made predictions',
+        List = {'Vape','Kingify'},
+        Default = 'Kingify',
+        Tooltip = 'Vape = Built in predictions\nKingify = Custom made predictions',
         Visible = false
     })
     
@@ -7782,7 +7782,7 @@ run(function()
 	local OtherProjectiles
 	local Blacklist
 	local SortMethod
-	local AeroPAChargePercent
+	local KingifyPAChargePercent
 	local RandomHeadPercent
 	local RandomTorsoPercent
 	local CustomPrediction
@@ -8083,13 +8083,13 @@ run(function()
 
 						local customDrawDuration = 5
 						if projmeta.projectile:find('arrow') then
-							customDrawDuration = 0.58 * (AeroPAChargePercent.Value / 100)
+							customDrawDuration = 0.58 * (KingifyPAChargePercent.Value / 100)
 						elseif projmeta.projectile:find('frosty_snowball') then
 							local tool = store.hand and store.hand.tool
 							if tool and tool.Name:find('frost_staff') then
 								local cd = (tool.Name:find('frost_staff_3') and 0.16) or
 										   (tool.Name:find('frost_staff_2') and 0.18) or 0.2
-								customDrawDuration = cd * (AeroPAChargePercent.Value / 100)
+								customDrawDuration = cd * (KingifyPAChargePercent.Value / 100)
 							end
 						end
 
@@ -8166,7 +8166,7 @@ run(function()
 		Tooltip = 'Maximum distance (in studs) for targeting'
 	})
 
-	AeroPAChargePercent = ProjectileAimbot:CreateSlider({
+	KingifyPAChargePercent = ProjectileAimbot:CreateSlider({
 		Name = 'Charge Percent',
 		Min = 1,
 		Max = 100,
@@ -9134,7 +9134,7 @@ run(function()
         return false
     end
     
-    local Aerov4TitanRemover = vape.Categories.BoostFPS:CreateModule({
+    local Kingifyv4TitanRemover = vape.Categories.BoostFPS:CreateModule({
         Name = 'Titan Remover',
         Function = function(callback)
             if callback then
@@ -9321,12 +9321,12 @@ run(function()
         Tooltip = 'Removes Titan/Bhaa models and effects for FPS boost'
     })
 
-    EffectsOnly = Aerov4TitanRemover:CreateToggle({
+    EffectsOnly = Kingifyv4TitanRemover:CreateToggle({
         Name = 'Effects Only',
         Default = false,
         Tooltip = 'Only hides particles keeps titan models visible',
         Function = function(callback)
-            if Aerov4TitanRemover.Enabled then
+            if Kingifyv4TitanRemover.Enabled then
                 for object, properties in pairs(originalProperties) do
                     if object and object.Parent then
                         pcall(function()
@@ -9341,9 +9341,9 @@ run(function()
                 processedObjects = {}
                 originalProperties = {}
                 
-                Aerov4TitanRemover:Toggle()
+                Kingifyv4TitanRemover:Toggle()
                 task.wait()
-                Aerov4TitanRemover:Toggle()
+                Kingifyv4TitanRemover:Toggle()
             end
         end
     })
@@ -18798,7 +18798,7 @@ run(function()
 	local detectedPlayers = {}
 	local processing = {}
 
-	getgenv()._aerov4_staffCounts = {spec=0, closet=0, mod=0, impossible=0}
+	getgenv()._Kingifyv4_staffCounts = {spec=0, closet=0, mod=0, impossible=0}
 	local function refreshStaffCounts()
 		local c = {spec=0, closet=0, mod=0, impossible=0}
 		for _, data in pairs(detectedPlayers) do
@@ -18813,7 +18813,7 @@ run(function()
 				c.mod += 1
 			end
 		end
-		getgenv()._aerov4_staffCounts = c
+		getgenv()._Kingifyv4_staffCounts = c
 		vapeEvents.StaffCountUpdate:Fire()
 	end
 
@@ -34635,7 +34635,7 @@ run(function()
 			if callback then
 				local syncEvents = bedwars.ClientSyncEvents
 				if not syncEvents or not syncEvents.SwordSwing then
-					warn('[AEROV4] martinspeed: swordswing event not found')
+					warn('[KingifyV4] martinspeed: swordswing event not found')
 					return
 				end
 				local ok, conn = pcall(function()
@@ -34654,7 +34654,7 @@ run(function()
 				if ok and conn then
 					martinConn = conn
 				else
-					warn('[AEROV4] martinspeed: failed to hook swordswing')
+					warn('[KingifyV4] martinspeed: failed to hook swordswing')
 				end
 			else
 				if martinConn then
