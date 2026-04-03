@@ -5663,7 +5663,7 @@ run(function()
         local switched = switchItem(item.tool)
         targetinfo.Targets[ent] = tick() + 1
         task.spawn(function()
-            local dir, id = CFrame.lookAt(shootPosition, calc).LookVector, httpService:GenerateGUID(true)
+            local dir, id = CFrame.lookAt(shootPosition, calc).LookVector, Service:GenerateGUID(true)
             local holdingCrossbow = item.itemType:find('crossbow')
             local holdingBow = item.itemType:find('bow') and not holdingCrossbow
             if holdingCrossbow then
@@ -5678,7 +5678,7 @@ run(function()
                     bedwars.GameAnimationUtil:playAnimation(lplr, shootAnim)
                 end
             end
-            local launchData = {drawDurationSec = 0, shotId = httpService:GenerateGUID(false)}
+            local launchData = {drawDurationSec = 0, shotId = Service:GenerateGUID(false)}
             bedwars.ProjectileController:createLocalProjectile(meta, ammo, projectile, shootPosition, id, dir * projSpeed, launchData)
             local res = projectileRemote:InvokeServer(item.tool, ammo, projectile, shootPosition, pos, dir * projSpeed, id, launchData, workspace:GetServerTimeNow() - 0.045)
             if not res then
