@@ -56,6 +56,18 @@ if not shared.VapeDeveloper then
 	writefile('newvape/profiles/commit.txt', commit)
 end
 
-return loadstring(downloadFile('newvape/main.lua'), 'main')({
-    Username = shared.ValidatedUsername
-})
+local success, result = pcall(function()
+    local scriptFunc = loadstring(downloadFile('newvape/main.lua'), 'main')
+    
+    if not scriptFunc then
+        error("Failed to load main.lua")
+    end
+
+    return scriptFunc({
+        Username = shared.ValidatedUsername or "Player"
+    })
+end)
+
+if not success then
+    warn("LOADER ERROR:", result)
+end
