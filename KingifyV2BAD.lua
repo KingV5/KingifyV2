@@ -757,7 +757,7 @@ NotificationGui:GetPropertyChangedSignal('AbsoluteSize'):Connect(function()
 end)
 
 notifications.ChildRemoved:Connect(function()
-    for i, v in notifications:GetChildren() do
+   for i, v in pairs(notifications:GetChildren()) do
         mainTweenService:Create(v, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {
             Position = UDim2.new(1, 0, 1, -(29 + (78 * i)))
         }):Play()
@@ -897,7 +897,7 @@ NotificationGui:GetPropertyChangedSignal('AbsoluteSize'):Connect(function()
 end)
 
 notifications.ChildRemoved:Connect(function()
-    for i, v in notifications:GetChildren() do
+   for i, v in ipairs(notifications:GetChildren()) do
         mainTweenService:Create(v, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {
             Position = UDim2.new(1, 0, 1, -(29 + (78 * i)))
         }):Play()
@@ -1314,7 +1314,7 @@ local function setupBedwars()
 
                 local function dumpRemote(tab)
                     local ind
-                    for i, v in tab do
+                 for i, v in pairs(tab) do
                         if v == 'Client' then
                             ind = i
                             break
@@ -1324,7 +1324,7 @@ local function setupBedwars()
                 end
 
                 remotes = remotes or {}
-                for i, v in remoteNames do
+              for i, v in pairs(remoteNames) do
                     local remote = dumpRemote(debug.getconstants(v))
                     if remote ~= '' then
                         remotes[i] = remote
@@ -2049,7 +2049,7 @@ local function switchHotbarItem(block)
         
         local tool, slot = store.tools[blockMeta.block.breakType], nil
         if tool then
-            for i, v in store.inventory.hotbar do
+           for i, v in ipairs(store.inventory.hotbar) do
                 if v.item and v.item.itemType == tool.itemType then 
                     slot = i - 1 
                     break 
@@ -2589,7 +2589,7 @@ local function enableNoSlowdown()
                     return oldSlowdown(self, tab)
                 end
 
-                for i in modifier.modifiers do
+               for i, v in pairs(modifier.modifiers) do
                     if (i.moveSpeedMultiplier or 1) < 1 then
                         modifier:removeModifier(i)
                     end
