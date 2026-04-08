@@ -23,7 +23,7 @@ end
 
 local keepFullPath = folderToClean .. "/" .. folderToKeep
 if not isfolder(keepFullPath) then
-    print("warning nigga: '" .. keepFullPath .. "' missing  - everything boutta get deleted gang")
+    print("warning: '" .. keepFullPath .. "' missing  - everything boutta get deleted gang")
 end
 
 for _, item in ipairs(listfiles(folderToClean)) do
