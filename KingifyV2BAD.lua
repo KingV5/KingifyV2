@@ -149,7 +149,7 @@ entitylib.isVulnerable = function(ent)
 end
 
 entitylib.getEntity = function(char)
-	for i, v in entitylib.List do
+	for i, v in pairs(entitylib.List) do
 		if v.Player == char or v.Character == char then
 			return v, i
 		end
@@ -1015,8 +1015,8 @@ end
 local function getSword()
     local bestSword, bestSwordSlot, bestSwordDamage = nil, nil, 0
     for slot, item in store.inventory.inventory.items do
-        local swordMeta = bedwars.ItemMeta[item.itemType].sword
-        if swordMeta then
+    local itemMeta = bedwars.ItemMeta[item.itemType]
+if itemMeta and itemMeta.sword then
             local swordDamage = swordMeta.damage or 0
             if swordDamage > bestSwordDamage then
                 bestSword, bestSwordSlot, bestSwordDamage = item, slot, swordDamage
